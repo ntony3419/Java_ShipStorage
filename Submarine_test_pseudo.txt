@@ -1,0 +1,19 @@
+MAIN testSubMarine
+	s1 = NEW subMarine() (CLASS subMarine)
+	//invalid sub
+	s2_i = NEW subMarine("13456", 1920, "fat", -400.0) (CLASS subMarine)
+	//valid sub
+	s2_v = NEW subMarine(333.435000, 1996, "Alunmium", -110.22) (CLASS subMarine)
+	//
+	s3 = NEW subMarine(333.435000, 2050, "TITANIUM", -110.22) (CLASS subMarine)
+	s4 = NEW subMarine(333.435000, 2022, "Alunmium", -50.22) (CLASS subMarine)
+	
+	OUTPUT "submarine 1: " , s1
+	// throw error
+	OUTPUT "submarine 2 invalid: ", s2_i
+	//valid sub
+	OUTPUT "submarine 2 valid: ", s2_v
+	OUTPUT "submarine 3 : ", s3
+	OUTPUT "submarine 4 : ", s2_v.equals(s4)
+END testSubMarine
+

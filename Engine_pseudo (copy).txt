@@ -1,0 +1,136 @@
+CLASS engine
+	
+	classfields:
+		fuel (STRING)
+		cylinder (INTEGER)	
+	
+	// default constructor
+	SUBMODULE Engine
+	IMPORT none
+	EXPORT none
+	ASSERTION : default constructor to create engine with default value
+	ALGORITHM
+		fuel := "gas"
+		cylinder := 6
+	END
+	
+	// Alternate Constructor
+	SUBMODULE Engine
+	IMPORT inFuel, inCylinder
+	EXPORT none
+	ASSERTION
+	ALGORITHM
+		fuel := inFuel
+		cylinder := inCylinder
+	END
+	
+	//copy constructor
+	SUBMODULE Engine
+	IMPORT inEngine (Engine class)
+	EXPORT none
+	ASSERTION
+	ALGORITHM
+		fuel := inEngine.getFuel <- none
+	END
+	
+	//validateFuel
+	SUBMODULE: validateFuel
+	IMPORT: inFuel
+	EXPORT: TRUE
+	ASSERTION:
+	ALGORITHM:
+		IF (inFuel := "GAS" OR "HYDROGEN" OR "NUCLEAR POWER" ) THEN
+			OUTPUT true
+		ELSE			
+			trueFuel := false (BOOLEAN)
+		END IF
+		OUTPUT trueFuel
+	END validateFuel
+	
+	//validateCylinder
+	METHOD validateCylinder
+	IMPORT cylinder
+	EXPORT TRUE
+	ASSERTION:
+	ALGORITHM:
+		IF (1 < cylinder  < 21)
+			OUTPUT TRUE
+		END IF
+	END validateCylinder
+	
+	//clone method
+	SUBMODULE clone
+	IMPORT none
+	EXPORT Engine
+	ASSERTION
+	ALGORITHM:
+		cloneEngine (engine)
+		cloneEngine := NEW engine(this.fuel, this.cylinder)
+		OUTPUT cloneEngine
+	END clone
+	
+	//setFuel method
+	SUBMODULE setFuel
+	IMPORT: inFuel (REAL)
+	EXPORT: none
+	ASSERTION: set the fuel to inFuel
+	ALGORITHM: 	
+		IF validateFuel(inFuel)
+			fuel = inFuel
+		ELSE
+			THROW EXCEPTION "not valid import"
+		END IF
+	END setFuel
+	
+	//setCylinder method
+	SUBMODULE setCylinder
+	IMPORT: inCylinder ( INTEGER)
+	EXPORT: none
+	ASsERTION:
+	ALGORITHM:
+		IF validateCylinder(inCylinder)
+			cylinder=inCylinder
+		ESLE
+			THROWN EXCEPTION "NOT A VALID IMPORT"
+		END IF 
+	END setCylinder
+
+	//getFuel method
+	SUBMODULE getFuel
+	IMPORT none
+	EXPORT fuel
+	ASSERTION
+	ALGORITHM
+		OUTPUT fuel
+	END getFuel
+
+	//getCylinder methods
+	SUBMODULE getCylinder
+	IMPORT none
+	EXPORT cylinder
+	ASSERTION
+	ALGORITHM
+		OUTPUT cylinder
+	END getYear
+
+	//equals method
+	SUBMODULE equals
+	IMPORT inObj (OBJECT)
+	EXPORT same
+	ASSERTION: compare 2 engine if they are interchangable when they have same fuel
+	ALGORITHM:
+		same = false (BOOLEAN)
+		IF inObj INSTANCEOF engine
+			inEngine = (engine) inObj (CLASS engine)
+			IF inEngine.getFuel() == inEngine.getFuel()	THEN
+				same:=true			
+		END IF
+		ENDIF
+		OUTPUT same
+	END equals
+	
+	//toString Method
+	STRING toString
+		OUTPUT "fuel type: ", fuel, "cylinder: ", cylinder
+	END toString		
+END engine

@@ -1,0 +1,32 @@
+Program: <class engine>
+Design Date: 30/03/2019
+Test Date: 
+
+Total Tests: 10
+Tests Passed:
+Tests Failed:
+		
+		Fuel		Year
+Note: s1   	"GAS"		1996	(default valid object)
+	s2_i	"oil"		1996	(invalid fuel)
+	s2_v    "GAS"		1996	(valid test fuel type and year range
+	s3	"water"		1996	(invalid fuel)
+	s4	"GAS"		1950	(minimum year) (test equal function with s2_v) (if they have same fuel then interchangable)
+	s5	"GAS"		2060	(invalid max year)
+	s6	"GAS"		2050	(test inclusive max year)
+      	s7	"NUCLEAR POWER"	1996	(test type of fuel)
+	s8	"HYDROGEN"	1996	
+
+TEST RESULTS:
+ID: Category:    Test Data:                Expected Result:   Expected Result:    Actual Result:    Actual Result:    Pass(P)/Fail(F)
+                  (Fuel Year)  		(	FUEL	)       (YEAR)          (FUEL)        		(YEAR)  
+____________________________________________________________________________________________________________________________________________
+s1   		GAS	18			GAS		18		GAS		18				p
+s2_i		oil	18			invalid input	invalid		invalid input	invalid			p
+s2_v		GAS	18			GAS		18		GAS		18		p
+s3  		water	18			invalid input	invalid		invalid input	invalid		p
+s4  		GAS	2			GAS		2		GAS		2	p
+s5  		GAS	20			invalid input	invalid		invalid input	invalid			p
+s6		GAS	20			GAS		20		GAS		20			p
+s7 		NUCLEAR POWER 18		NUCLEAR POWER	18		NUCLEAR POWER	18			p
+s8		HYDROGEN	18		HYDROGEN	HYDROGEN	HYDROGEN	HYDROGEN		p

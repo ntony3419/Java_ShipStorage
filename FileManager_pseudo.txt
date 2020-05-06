@@ -1,0 +1,101 @@
+/****
+* NGUYEN HUU HUNG QUANG
+* File Manager_pseudo.txt
+* This class import export for all the ship
+*
+*/
+CLASS FileManager
+	classfield 
+		UserInterFace
+		shipStorage
+	CONSTRUCT UserInterFace USING UserInterFace
+	CONSTRUCT FileManager USING shipStorage
+	// file reader
+	SUBMODULE: fileReader
+	IMPORT : fileName
+	EXPORT : aStorage
+	ASSERTION
+	ALGORITHM
+		CONSTRUCT UserInterFace USING UserInterFace DEFAULT CONSTRUCTOR
+		fileStrm = null (FILEINPUTSTREAM)  
+		rdr (INPUTSTREAMREADER)
+		bRea (BUFFEREDREADER)
+		line (String)
+		lineNum (Integer)
+		shipValues (ARRAY OF STRING SIZE 7)
+		
+		TRY
+			CONSTRUCT fileStrm USING FileInputStream <- fileName
+			CONSTRUCT rdr USING InputStreamReader <- fileStrm
+			CONSTRUCT bRead USING BufferedReader <- rdr
+			lineNum := 0
+			nextLine := 0
+			line := bRead.readLine <-none 
+			OUTPUT <- "load data from file", fileName
+			WHILE line IS NOT null
+				lineNum INC BY 1
+				shipValues := processLine <- line
+				IF LENGTH OF shipValues IS NOT 7
+					lineNum INC BY 1
+				ELSE IF LENGTH OF shipValues[0] IS NOT 1
+					lineNum INC BY 1
+				ELSE
+					CONSTRUCT inEngine USING Engine <- shipValues[4], (convert to integer) shipvalues [3]
+					CASE shipValues[0]
+						case "s" OR "S"
+							IF aStorage.getCountShip <- none := 15
+								OUTPUT "SUbmarine location full"
+						
+							ELSE 
+								CONSTRUCT newSub USING subMarine <- shipValues[1], (convert to integer) shipValues[2], shipValues[5], inEngine, (convertDouble) shipValues[6]
+								aStorage.addSubmarine <- newSub
+							END IF
+						case "f" OR "F"		
+								IF aStorage.getCountJet <- none := 15
+								OUTPUT "fighter location full"						
+							ELSE 		
+								CONSTRUCT newJet USING fighterJet <- shipValues[1], (convert to integer) shipValues[2], shipValues[5], inEngine, (convertDouble) shipValues[6]
+								aStorage.addJet <- newJet
+					END CASE
+				END IF
+			line :=bRead.readLine <-none
+			END WHILE
+			fileStrm.close <- none
+		CATCH IOEXCEPTION
+		END TRY-Catch
+	END fileReader	
+	
+	SUBMODULE processLine
+	IMPORT line
+	EXPORT shipValues
+	ASSERTION
+	ALGORITHM
+		CONSTRUCT shipValues STRING ARRAY SIZE 7
+		thisToken := null
+		strTok (StringTokenizer)
+		CONSTRUCT strTok USING StringTokenizer <- csvRow, ","
+		WHILE (strTok.hasMoreTokens <- none)
+			FOR i = 0 to LENGTH OF shipValues INC BY 1
+				thisToken := strTok.nextToken <-none
+				shipValues[i] := thisToken
+			END FOR			
+		ENDWHILE
+	END processLine
+
+	//Write to file
+	SUBMODULE writeToFIle
+	IMPORT inFileName (String), inSubArray (ARRAY OF subMarine), inFighterArray (ARRAY OF fighterJet) 
+	EXPORT none
+	ASSERTION
+	ALGORITHM
+		FILEOUTPUTSTREAM fileStrm : = null :
+		PRINTWRITER pw;
+		fileStrm := FILEOUTPUTSTREAM<- inFileName
+		pw : = PRINTWRITER <- fileStrm
+		FOR i:=0 TO LENGTH OF inSubArray INC BY 1
+			pw.println <- "s", inSubArray[i].getSerialNum<-none , "," , (convert to String)(inSubArray[i].getYear <- none) , "," , inSubArray[i].getHull <- none , "," , 
+							(convert to String)(inSubArray[i].getCylinder<-none) , "," , (conver to String)(inSubArray[i].getMaxDepth<-none)
+			pw.println <- "s", inSubArray[i].getSerialNum<-none , "," , (convert to String)(inSubArray[i].getYear <- none) , "," , inSubArray[i].getOrdanance <- none , "," , 
+							(convert to String)(inSubArray[i].getCylinder<-none) , "," , (conver to String)(inSubArray[i].getWingSpan<-none)
+			fileStrm.close <- none 				
+	END writeToFIle

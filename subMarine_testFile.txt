@@ -1,0 +1,28 @@
+Program: <class submarine>
+Design Date: 30/03/2019
+Test Date: 
+
+Total Tests: 10
+Tests Passed:
+Tests Failed:
+		
+		Serial		Year		hull		maxdepth
+Note: s1   	"200.435"	1996 		" "		400.00
+	s2	"156.321", 1920, "fat", -400.0
+	s3	"333.400", 1996, "Alumium", -110.22
+	s4	"200.435", 1996, "TITANIUM", -400.00
+	s5	"150.888", 2002, "TITANIUM", -400.00
+	s6	"200.435", 1996, "TITANIUM", -400.00
+      	s7	"200.435", 1996, "STEEL", -300.00
+	
+TEST RESULTS:
+ID: Category:    Test Data:                Expected Result:       Actual Result:        Pass(P)/Fail(F)
+                  (serial Year hull maxDepth)  		(	serial	)       (YEAR)          (hull)       (max)  
+____________________________________________________________________________________________________________________________________________
+s1   		"200.435" 1996 " " 400.00		"200.435" 1996 " " 400.00 		"200.435" 1996 " " 400.00	p
+s2	"156.321", 1920, "fat", -400.0			"156.321", 1920, "fat", -400.0		invalid
+s3	"333.400", 1996, "Alumium", -110.22		"333.400", 1996, "Alumium", -110.22	invalid
+s4	"200.435", 1996, "TITANIUM", -400.00		"200.435", 1996, "TITANIUM", -400.00	"200.435", 1996, "TITANIUM", -400.00	p
+s5	"150.888", 2002, "TITANIUM", -400.00		"150.888", 2002, "TITANIUM", -400.00	"150.888", 2002, "TITANIUM", -400.00	p
+s6	"200.435", 1996, "TITANIUM", -400.00		"200.435", 1996, "TITANIUM", -400.00	"200.435", 1996, "TITANIUM", -400.00	p	
+s7	"200.435", 1996, "STEEL", -300.00		"200.435", 1996, "STEEL", -300.00	"200.435", 1996, "STEEL", -300.00	p

@@ -1,0 +1,30 @@
+Program: <class engine>
+Design Date: 30/03/2019
+Test Date: 
+
+Total Tests: 10
+Tests Passed:
+Tests Failed:
+		
+		Serial		Year		hull		maxdepth
+Note: s1   	"200.435"	1996 		" "		400.00
+	s2	"156.321", 1920, "fat", -400.0
+	s3	"333.400", 1996, "Alumium", -110.22
+	s4	"200.435", 1996, "TITANIUM", -400.00
+	s5	"150.888", 2002, "TITANIUM", -400.00
+	s6	"200.435", 1996, "TITANIUM", -400.00
+      	s7	"200.435", 1996, "STEEL", -300.00
+	
+TEST RESULTS:
+ID: Category:    Test Data:                Expected Result:       Actual Result:        Pass(P)/Fail(F)
+                  (serial Year hull maxDepth)  		(	serial	)       (YEAR)          (hull)       (max)  
+____________________________________________________________________________________________________________________________________________
+s1   		"111.111" 1996 "WEAPON SYSTEM TYPE 1" 2.0		"111.111" 1996 "WEAPON SYSTEM TYPE 1" 2.0		"111.111" 1996 "WEAPON SYSTEM TYPE 1" 2.0	p
+s2	"156.321", 1996, "SUBMACHINE GUN", 2.20			"156.321", 1996, "SUBMACHINE GUN", 2.20		"156.321", 1996, "SUBMACHINE GUN", 2.20	
+s3	"156.321", 0, "SUBMACHINE GUN", 2.20		"156.321", 0, "SUBMACHINE GUN", 2.20			invalid
+s4	111.333", 2005, "SUBMACHINE GUN", 2.20		111.333", 2005, "SUBMACHINE GUN", 2.20   		111.333", 2005, "SUBMACHINE GUN", 2.20  
+s5	"500.321", 1996, "SUBMACHINE GUN", 2.20)		"500.321", 1996, "SUBMACHINE GUN", 2.20) 		invalid	p
+s6	156.321", 1996, "ROCKET MISSLE", 2.20	156.321", 1996, "ROCKET MISSLE", 2.20	156.321", 1996, "ROCKET MISSLE", 2.20	p	
+s7	"156.321", 1996, "SUBMACHINE GUN", 25.7 	"156.321", 1996, "SUBMACHINE GUN", 25.7		invalid		p
+s8	156.321", 1996, "ALL SYSTEM INCLUDED", 2.20		156.321", 1996, "ALL SYSTEM INCLUDED", 2.20		156.321", 1996, "ALL SYSTEM INCLUDED", 2.20	
+s9	"156.321", 2080, "SUBMACHINE GUN", 2.2		"156.321", 2080, "SUBMACHINE GUN", 2.2				invalid

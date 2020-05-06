@@ -1,0 +1,9 @@
+MAIN shipStorage_test_pseudo
+	CREATE NEW submarineArray TYPE subMarine CLASS  SIZE 15
+	CREATE NEW fighterArray TYPE fighterJet CLASS SIZE 15
+	
+	CREATE s1 OBJECT TYPE subMarine CLASS
+	ADD s1 INTO submarineArray
+	OUTPUT submarineArray
+END shipStorage_test_pseudo
+

@@ -1,0 +1,28 @@
+s,256.001,1952,4,BiO,STeEl,-252.52
+s,171.025,1993,12,diESel,alloy,-125.6
+s,156.01,1982,6,biO,STeEl,-345.62
+s,156.01,1982,6,biO,STeEl,-345.62
+s,171.025,1993,12,diESel,alloy,-125.6
+s,156.01,1982,6,biO,STeEl,-345.62
+s,256.001,1952,4,BiO,STeEl,-252.52
+s,171.025,1993,12,diESel,alloy,-125.6
+s,156.01,1982,6,biO,STeEl,-345.62
+s,156.01,1982,6,biO,STeEl,-345.62
+s,156.01,1982,6,biO,STeEl,-345.62
+s,156.01,1982,6,biO,STeEl,-345.62
+s,181.205,1973,10,diesel,alloy,0.0
+s,181.205,1973,10,diesel,alloy,0.0
+s,300.999,2010,8,BaTTerY,STeEl,-500.0
+f,245.197,1956,4,BiO,,25.6,Arya Stark
+f,298.867,2002,12,diESel,,9.45,Angry Cats
+f,256.001,2008,6,biO,,12.25,Marks Disappointment
+f,100.3,1968,6,biO,,5.46,Mechanical Claws
+f,197.542,1998,12,diESel,,5.67,10 mark 8 torpedoes
+f,197.542,1998,6,biO,,5.67,10 mark 8 torpedoes
+f,197.542,1998,4,BiO,,5.67,10 mark 8 torpedoes
+f,282.678,2012,12,diESel,,12.36,phaser cannons and 15 homing missiles
+f,282.678,2013,6,biO,,2.2,Homing Missiles
+f,245.197,1956,6,biO,,25.6,Arya Stark
+f,298.867,2002,6,biO,,9.45,Angry Cats
+f,256.001,2008,6,biO,,12.25,Marks Disappointment
+f,100.3,1968,10,diesel,,5.46,Mechanical Claws

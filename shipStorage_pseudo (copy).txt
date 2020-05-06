@@ -1,0 +1,258 @@
+CLASS shipStorage
+	classfield
+		submarineArray (ARRAY OF subMarine)
+ 		fighterArray (ARRAY OF fighterJet)
+		countJet (Integer)
+		countShip (integer)
+		
+	SUBMODULE : default constructor
+	IMPORT: none
+	EXPORT: none
+	ASSERTION : construct shipstorage
+	ALGORITHM
+		CONSTRUCT submarineArray SIZE 15 USING subMarine CLASS
+		CONSTRUCT fighterJet SIZE 15 USING subMarine Class
+		countShip = 0
+		countJet = 0
+	
+	SUBMODULE getSubArray
+	IMPORT none
+	EXPORT submarineArray(Array of subMarine
+	ASSERTION
+	ALGORITHM
+		OUTPUT submarineArray
+	END getSubArray
+	
+	SUBMODULE getJetArray
+	IMPORT none
+	EXPORT fighterArray
+	ASSERTION
+	ALGORITHM
+		OUTPUT fighterArray
+	END getJetArray
+		
+	SUBMODULE getCountShip
+	IMPORT none
+	EXPORT countShip (Integer)
+	ASSERTION
+	ALGORITHM
+		OUTPUT countShip
+	END getCountShip
+	
+	SUBMODULE getCountJet
+	IMPORT none
+	EXPORT countJet
+	ASSERTION
+	ALGORITHM
+		OUTPUT countJet
+	END getCountJet
+	
+	
+	SUBMODULE setSubArray 
+	IMPORT submarineArray (ARRAY OF subMarine)
+	EXPORT none
+	ASSERTION
+	ALGORITHM
+		submarineArray = submarineArray
+	END setSubArray
+	
+	
+	SUBMODULE  setJetArray
+	IMPORT fighterArray (ARRAY OF fighterJet)
+	EXPORT none 
+	ASSERTION
+	ALGORITHM
+		fighterArray = fighterArray
+	END setJetArray
+	
+	SUBMODULE setCountShip
+	IMPORT inCountShip
+	EXPORT none
+	ASSERTION
+	ALGORITHM
+		countShip :=inCountShip
+	END setCountShip
+	
+	SUBMODULE setCountJet
+	IMPORT inCountJet
+	EXPORT none
+	ASSERTION
+	ALGORITHM
+		countJet := inCountJet
+	END setCountJet
+	
+	SUBMODULE addSubmarine
+	IMPORT inSubmarine ( subMarine CLASS)
+	EXPORT none 
+	ASSERTION
+	ALGORITHM
+		IF countShip NOT 15 AND submarineArray[countShip] = nullTHEN
+			submarineArray[countShip] := inSubmarine
+			INC countShip BY 1			
+		ELSE
+			OUTPUT <- "full storage"
+		END
+	END 	
+	
+	SUBMODULE addJet
+	IMPORT inJet (fighterJet CLASS)
+	EXPORT none 
+	ASSERTION
+	ALGORITHM
+		IF countJet NOT 15 AND fighterArray[countShip] = nullTHEN
+			fighterArray[countJet] := inJet
+			INC countJet BY 1			
+		ELSE
+			OUTPUT <- "full storage"
+		END	
+	END 	
+	
+	SUBMODULE destinationCheck
+	IMPORT userDistance (Integer)
+	EXPORT none
+	ASSERTION
+	ALGORITHM
+		CONSTRUCT SubTravelArray SIZE 15 (REAL)
+		CONSTRUCT JetTravelArray SIZE 15 (REAL)
+		FOR i = 0 to countShip INC BY 1
+			SubTravelArray[i] := submarineArray[i].calcTravel < -userDistance
+		END FOR
+		FOR j = 0 to countJet INC BY 1
+			JetTravelArray[i] := fighterArray[i].calcTravel <userDistance
+		END FOR
+		
+		maxSubArray = SubTravelArray[0] (REAL)
+		maxJetArray = JetTravelArray[0] (REAL)
+		locationS = 0 (INTEGER)
+		locationJ = 0 (INTEGER)
+		
+		FOR k = 0 TO LENGTH OF  SubTravelArray INC BY 1
+			IF maxSubArray < SubTravelArray[k] THEN
+				maxSubArray := SubTravelArray[k]
+				locationS := k
+				END IF 
+		END FOR					
+		FOR l = 0 TO LENGTH OF  JetTravelArray INC BY 1
+			IF maxJetArray < JetTravelArray[l] THEN
+				maxJetArray := JetTravelArray[l]
+				locationJ := l
+			ENDIF
+		END FOR
+		
+		IF maxJetArray > maxSubArray THEN
+			OUTPUT <- "the fastes mahine is Fighter Jet ", fighterArray[locationJ].getSerialNum<-none
+		ELSE
+			OUTPUT <-"the fastes mahine is submarine ", submarineArray[locationS].getSerialNum<-none
+	END destinationCheck
+	
+	SUBMODULE findDuplicate
+	IMPORT shipValues (STRING ARRAY)
+	EXPORT none
+	ASSERTION
+	ALGORITHM
+		CONSTRUCT testSUB ARRAY FROM aStorage.getSubArray <- none
+		CONSTRUCT testJet ARRAY FROM aStorage.getJetArray <- none
+		dupSub = false (BOOLEAN)
+		dupJet = false (BOOLEAN)
+		
+		FOR i = 0 TO LENGTH OF testSub INC BY 1
+			FOR j = i + 1 TO LENGTH OF testSub INC BY 1
+				IF (testSub[i].getSerialNum <- none.equals <- testSub[j].getSerialNum<-) AND
+					testSub[i].getYear<- none = testSub[j].getYear<- none AND  
+			testSub[i].getEngine<- none.getCylinder<- none =testSub[j].getEngine<- none .getCylinder<- none  AND 
+						testSub[i].getEngine<- none .getFuel<- none .equals(testSub[j].getEngine<- none .getFuel<- none .) AND 
+						testSub[i].getHull<- none .equals(testSub[j].getHull<- none .) && 
+						testSub[i].getMaxDepth<- none =testSub[j].getMaxDepth<- none ) 
+					THEN 
+						dupSub := true
+				END IF 
+			END FOR
+		END FOR
+		
+		FOR k = 0 TO LENGTH OF testJet INC BY 1
+			FOR l = k + 1 TO LENGTH OF testSub INC BY 1
+				IF (testJet[k].getSerialNum <- none.equals(testJet[l].getSerialNum <- none
+					AND testJet[k].getYear <- none = testJet[l].getYear <- none AND 
+			testJet[k].getEngine <- none.getCylinder <- none.testJet[l].getEngine <- none.getCylinder() AND 
+						testJet[k].getEngine <- none.getFuel <- none.equals(testJet[l].getEngine <- none.getFuel <- none.  AND 
+						testJet[k].getOrdanance <- none.equals(testJet[l].getOrdanance <- none. && 
+						testJet[k].getWingSpan <- none = testJet[l].getWingSpan <- none.
+					THEN 
+						dupJet := true
+				END IF 
+			END FOR
+		END FOR			
+	END findDuplicate
+	
+	SUBMODULE printStorage
+	IMPORT none
+	EXPORT none 
+	ASSERTION
+	ALGORITHM
+		OUTPUT "submarine Storage"
+		FOR i = 0 i< LENGTH OF submarineArray INC BY 1
+			IF submarineArray[i] NOT null
+				OUTPUT <- submarineArray[i].toString<-none
+			ELSE
+				i INC by 1
+			END IF
+		END FOR
+		
+		OUTPUT "fighterJet"
+		FOR j = 0 j< LENGTH OF fighterArray INC BY 1
+			IF fighterArray[j] NOT null
+				OUTPUT <- fighterArray[j].toString<-none
+			ELSE
+				j INC by 1
+			END IF
+		END FOR
+	END printStorage		
+	
+	SUBMODULE equals
+	IMPORT A , B (ALL ARRAY)
+	EXPORT true/false 
+	ASSERTION
+	ALGORITHM
+		equal (BOOLEAN)
+		IF LENGTH A NOT EQUAL LENGTH B THEN
+			equal := false
+		ELSE
+			count = 0 (INTEGER)
+			DO
+				equal = A[count].equals<- B[count]
+				count = count + 1
+			WHILE equal AND (count < A.length)
+			END DOWHILE
+		END IF			
+	END equals
+	
+	SUBMODULE viewSingle
+	IMPORT machineSerialNum
+	EXPORT none
+	ASSERTION
+	ALGORITHM
+		locationSub :=31 (INTEGER)
+		locationJet := 31 (INTEGER)
+		FOR i = 0 TO countShip INC by 1
+			IF submarineArray[i].getSerialNum <- none.equals<-machineSerialNum
+				locationSub := i 
+			END IF
+		END FOR
+		
+		FOR i = 0 TO countJet INC by 1
+			IF fighterArray[i].getSerialNum <- none.equals<-machineSerialNum
+				locationJet := i 
+			END IF
+		END FOR
+		IF locationSub <30
+			OUTPUT <- "the matching submarine is : " + submarineArray[locationSub].getSerialNum<- none + "," +
+				submarineArray[locationSub].getYear<- none + ","+ submarineArray[locationSub].getHull<- none + ","+ 
+				submarineArray[locationSub].getEngine<- none.getCylinder<- none + "," + submarineArray[locationSub].getMaxDepth <- none
+		ELSE IF locationJet <30
+			OUTPUT <- "the matching submarine is : " + submarineArray[locationJet].getSerialNum<- none + "," +
+				submarineArray[locationJet].getYear<- none + ","+ submarineArray[locationJet].getOrdanance<- none + ","+ 
+				submarineArray[locationJet].getEngine<- none.getCylinder<- none + "," + submarineArray[locationJet].getWingSpan <- none
+		ELSE
+			OUTPUT <- "no duplicate"
+		END IF
+	END viewSingle

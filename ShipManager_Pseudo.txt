@@ -1,0 +1,4 @@
+MAIN
+	CONSTRUCT menu USING default USERINTERFACE
+	menu.run<-none
+END MAIN

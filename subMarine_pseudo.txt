@@ -1,0 +1,193 @@
+CLASS subMarine
+	class constants:
+		HULL = "STEEL", "ALLOY", "TITANIUM"
+	classfields:
+		serialNum (REAL)
+		year (INTEGER)
+		hull (STRING)
+		maxDepth (REAL)
+	
+	// default constructor
+	DEFAULT CONSTRUCTOR subMarine
+	IMPORT	none
+	EXPORT	constructor never export
+	ASSERTION
+	ALGORITHM:
+		serialNum = 333.435
+		year = 1996
+		hull = "Alunmium"
+		maxDepth = -110.22
+	END subMarine
+	
+	// alternate constructor
+	ALTERNATE CONSTRUCTOR subMarine
+	IMPORT inSerialNum, inYear, inHull, inMaxDepth
+	EXPORT never export
+	ASSERTION
+	ALGORITHM:
+		IF validateSerialNum(inSerialNum) AND validateYear(inYear) AND validateMaxDepth(inMaxDepth) AND validateHull(inHull)
+			serialNum = inSerialNum
+			year = inYear
+			hull = inHull
+			maxDepth = inMaxDepth
+		ELSE
+			THROW EXCEPTION
+		END IF
+	END subMarine
+
+	// copy constructor
+	COPY CONSTRUCTOR subMarine
+	IMPORT inSubMarine (CLASS subMarine)
+	EXPORT never export
+	ASSERTION
+	ALGORITHM:
+		
+			serialNum = inSubMarine.getSerialNum()
+			year = inSubMarine.getYear()
+			hull = inSubMarine.getHull()
+			maxDepth = inSubMarine.getMaxDepth()
+	
+	END subMarine
+	
+		
+	// validate serialNumber
+	METHOD validateSerialNum
+	IMPORT inSerialNum
+	EXPORT TRUE
+	ASSERTION:
+	ALGORITHM:
+		IF (SIZE OF serialNum != 7 ) THEN
+			OUTPUT FALSE
+		ELSE IF (SIZE intSerialNum == 7) THEN
+			newTwo INTEGER ARRAY <- SPLIT inSerialNum AT "."
+				frontPart <- newTwo[0] INTEGER
+				backPart <- newTwo[1] INTEGER
+			IF frontPart >100 AND frontPart<300 AND backPart>001 AND backPart<999 THEN
+				trueSerial := true (BOOLEAN)
+			ELSE
+				trueSerial := false (BOOLEAN)
+		END IF
+		OUTPUT trueSrial
+	END validateSerialNum
+	//validate Year
+	METHOD validateYear
+	IMPORT year
+	EXPORT TRUE
+	ASSERTION:
+	ALGORITHM:
+		IF (1950 < year  < 2022)
+			OUTPUT TRUE
+		END IF
+	END validateYear
+
+	// validate hull
+	METHOD validateHull
+	IMPORT hull
+	EXPORT TRUE
+	ASSERTION
+	ALGORITHM
+		IF (hull = "STEEL" OR "ALLOY" OR "TITANIUM")
+			OUTPUT TRUE
+		END IF
+	END validateHull
+
+	//validate maxDepth
+	METHOD validateMaxDepth
+	IMPORT maxDepth
+	EXPORT TRUE
+	ASSERTION:
+	ALGORITHM:
+		IF (-500.0 < maxDepth < 0.0)
+			OUTPUT TRUE
+		END IF
+	END validateMaxDepth	
+		
+	// clone
+	CLONE clone
+	IMPORT none
+	EXPORT cloneSubMarine
+	ASSERTION
+	ALGORITHM:
+		cloneSubMarine (subMarine)
+		cloneSubMarine = NEW subMarine(this.serialNum, this.year, this.hull, this.maxDepth)
+		OUTPUT cloneSubMarine
+	END clone
+	
+	//calcTravel
+	SUBMODULE calcTravel
+	IMPORT userDistance (INTEGER)
+	EXPORT max
+	ASSERTION: 
+	ALGORITHM:
+		max:=0 (REAL)
+		IF (cylinder = 0 AND maxDepth = 0) THEN
+			max = 0
+		ELSE
+			max = userDistance/cylinder *(1/(10+(maxDepth*(-1))))
+	END calcTravel
+	
+	// set hull
+	SUBMODULE setHull
+	IMPORT inHull(STRING)
+	EXPORT none
+	ASSERTION: set hull to inHull
+	ALGORITHM:
+		IF validateHull(inHull)
+			hull = inHull
+		ELSE 
+			THROW exCEPTION
+		END IF
+	END setHull		
+		
+	//set maxDepth
+
+	SUBMODULE setMaxDepth
+	IMPORT: inMaxDepth (DOUBLE)
+	EXPORT:none
+	ASSERTION:
+	ALGORITHM:
+		IF (validateMaxDepth(inMaxDepth))
+			maxDepth = inMaxDepth
+		ELSE 
+			THROW EXCEPTION
+		END IF
+	END setMaxDepth
+
+	//get hull
+	SUBMODULE getHull
+	IMPORT none
+	EXPORT hull
+	ASSERTION
+	ALGORITHM
+		OUTPUT hull
+	END getHull
+
+		//get maxDepth
+	SUBMODULE getMaxDepth
+	IMPORT none
+	EXPORT maxDepth
+	ASSERTION
+	ALGORITHM
+		OUTPUT maxDepth
+	END getMaxDepth
+
+
+	//method equals
+	SUBMODULE equals
+	IMPORT inObj (OBJECT)
+	EXPORT same
+	ASSERTION: compare 2 submarine if they are interchangable when they have same hull and same maxDepth
+	ALGORITHM:
+		same = false (BOOLEAN)
+		IF inObj INSTANCEOF subMarine
+			inSubMarine = (subMarine) inObj (CLASS subMarine)
+			same = hull.equals(inSubMarine.getHull()) AND (maxDepth == inSubMarine.getMaxDepth())
+		END IF
+		OUTPUT same
+	END equals
+		
+	//toString object
+	STRING toString
+		OUTPUT "serial NUM: ", serialNum, "year: ", year, "hull: " , hull, "max depth: ", maxDepth
+	END toString
+END subMarine

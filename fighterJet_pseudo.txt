@@ -1,0 +1,149 @@
+CLASS fighterJet
+	
+	classfields:
+		ordanance (STRING)
+		wingSpan (REAL)
+	
+	// default constructor 
+	DEFAULT CONSTRUCTOR fighterJet
+	IMPORT	none
+	EXPORT	constructor never export
+	ASSERTION
+	ALGORITHM:
+		super<-none
+		ordanance := "WEAPON SYSTEM TYPE 1"
+		wingSpan := 2.8
+	END fighterJet
+	
+	//Alternate Constructor
+	ALTERNATE CONSTRUCTOR fighterJet
+	IMPORT inSerialNum, inYear, inOrdanance, inMaxDepth
+	EXPORT never export
+	ASSERTION
+	ALGORITHM:
+			super<-none
+			ordanance := inOrdanance
+			wingSpan = inWingSpan
+	END fighterJet
+ 
+	//Copy constructor
+	COPY CONSTRUCTOR fighterJet
+	IMPORT inFighterJet (CLASS fighterJet)
+	EXPORT never export
+	ASSERTION
+	ALGORITHM:		
+			super <- inFighterJet
+			ordanance = inFighterJet.getOrdanance <- none
+			wingSpan = inFighterJet.getWingSpan<- none	
+	END inFighterJet
+	
+	//clone method
+	CLONE clone
+	IMPORT none
+	EXPORT cloneFighterJet
+	ASSERTION
+	ALGORITHM:
+		cloneFighterJet (fighterJet CLASS)
+		CONSTRUCT cloneFighter USING this
+	END clone
+	
+	//setOrdanace
+	SUBMODULE setOrdanance
+	IMPORT inOrdanance(STRING)
+	EXPORT none
+	ASSERTION: set ordanance to inOrdanance
+	ALGORITHM:
+		IF validateOrdanance(inHull)
+			ordanance = inOrdanance
+		ELSE 
+			THROW exCEPTION
+		END IF
+	END setOrdanance	
+	
+	//set wingspan
+	SUBMODULE setWingSpan
+	IMPORT: inWingSpan (DOUBLE)
+	EXPORT:none
+	ASSERTION:
+	ALGORITHM:
+		IF (validateWingSpan(inWingSpan))
+			wingSpan := inWingSpan
+		ELSE 
+			THROW EXCEPTION
+		END IF
+	END setWingSpan
+	
+	//get ordanancce
+	SUBMODULE getOrdanance
+	IMPORT none
+	EXPORT ordanance
+	ASSERTION
+	ALGORITHM
+		OUTPUT ordanance
+	END getOrdanance
+
+	//get winspan
+	SUBMODULE getWingSpan
+	IMPORT none
+	EXPORT wingSpan
+	ASSERTION
+	ALGORITHM
+		OUTPUT wingSpan
+	END getWingSpan
+
+	//calcTravel
+	METHOD calcTravel
+	IMPORT userDistance
+	EXPORT max
+	ASSERTION:
+	ALGORITHM:calculate travel time
+		max:=0 (REAL)
+		IF Cylinder = 0 OR wingSpan =0 THEN
+			max = 0
+		ELSE
+			max = (userDistance/(wingSpan*cylinder*150)
+		END-IF 
+	END calcTravel
+	
+	//method equals
+	SUBMODULE equals
+	IMPORT inObj (OBJECT)
+	EXPORT same
+	ASSERTION: compare 2 submarine if they are interchangable when they have same hull and same maxDepth
+	ALGORITHM:
+		same = false (BOOLEAN)
+		IF inObj INSTANCEOF fighterJet
+			inFighterJet = (fighterJet) inObj (CLASS fighterJet)
+			IF (ordanance.equals(inFighterJet.getOrdanance())) THEN			
+				IF (String.valueOf(wingSpan).equals(String.valueOf(inFighterJet.getWingSpan()))) THEN
+		END IF
+		OUTPUT same
+	END equals
+		
+	//toString object
+	STRING toString
+		OUTPUT "serial NUM: ", serialNum, "year: ", year, "Ordanance: " , ordanance, "wing Span ", wingSpan
+	END toString
+	
+	// validate ordanance
+	METHOD validateOrdanance
+	IMPORT ordanance
+	EXPORT TRUE
+	ASSERTION
+	ALGORITHM
+		IF (ordanance = "SUBMACHINE GUN" OR "ROCKET MISSLE" OR "ALL")
+			OUTPUT TRUE
+		END IF
+	END validateOrdanance
+
+	//validate wingSpan
+	METHOD validateWingSpan
+	IMPORT wingSpan
+	EXPORT TRUE
+	ASSERTION:
+	ALGORITHM:
+		IF (-500.0 < wingSpan < 0.0)
+			OUTPUT TRUE
+		END IF
+	END validateWingSpan
+END subMarine

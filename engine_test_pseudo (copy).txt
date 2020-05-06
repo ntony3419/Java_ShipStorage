@@ -1,0 +1,26 @@
+MAIN testEngine
+	s1 = NEW engine() (CLASS engine)
+	//invalid sub
+	s2_i = NEW engine("oil", 1996) (CLASS engine)
+	//valid sub
+	s2_v = NEW engine("GAS", 1996) (CLASS engine)
+	//
+	s3 = NEW engine("water",	1996) (CLASS engine)
+	s4 = NEW engine("GAS"	,	1950) (CLASS engine)
+	s5 = NEW engine("GAS"	,	2060) (CLASS engine)
+s6 = NEW engine("GAS"		,2050) (CLASS engine)
+s7 = NEW engine("NUCLEAR POWER",	1996) (CLASS engine)
+s8 = NEW engine("HYDROGEN", 1996) (CLASS engine)
+	OUTPUT "engine 1: " , s1
+	// throw error
+	OUTPUT "engine 2 invalid: ", s2_i
+	//valid engine
+	OUTPUT "engine 2 valid: ", s2_v
+	OUTPUT "engine 3 : ", s3
+	OUTPUT "engine 4 : ", s2_v.equals(s4)
+OUTPUT "engine 5 : ", s5
+OUTPUT "engine 6 : ", s6
+OUTPUT "engine 7 : ", s7
+OUTPUT "engine 8 : ", s8
+END engine
+

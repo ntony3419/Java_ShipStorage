@@ -1,0 +1,279 @@
+CLASS userInterFace
+		classfields:
+			 shipStorage CLASS shipStorage  
+		
+		SUBMODULE run
+		IMPORT none
+		EXPORT none
+		ASERTION
+		ALGORITHM			
+			userInput := userInput<-none
+			CONSTRUCT aStorage USING ShipStorage <- none
+			CONSTRUCT submarineArray USING subMarine <- none 
+			INITIALIZE TO null
+			CONSTRUCT fighterArray USING fighterJet <- none 
+			INITIALIZE TO null
+			menuChoose := 0 (INTEGER)			
+			WHILE menuChoose NOT 8 DO
+			OUTPUT " "Welcome to submarine and fighter jet storage\n.Please select an option from the menu. NEWLINE",
+							
+							"1. Add submarine or fighter Jet from keyboard" NEWLINE,
+							"2. Load submarine or fighter jet from files NEWLINE" ,
+							"3. View information of specific sub marine or fighter jet in the storageNEWLINE",
+							"4. Find the fastest machine for a certain distanceNEWLINE" ,
+							"5. List all the machines available in the storageNEWLINEn",
+							"6. Export machines to a fileNEWLINEn",
+							"7. Find duplicateNEWLINEn",
+							"8. Exit the storageNEWLINE"
+			OUTPUT "enter number betweek 1 and 8"
+			INPUT menuChoose
+			CASE menuChoose
+				CASE 1
+					OUTPUT "Type, Serial, Year, Cylinder, Fuel, Hull Or WingSpand, Max Depth OR Ordanance"
+					INTPUT dataInput (String)
+					CONSTRUCT shipData ARRAY SIZE 7
+					shipData : = dataInput.Split<-","
+					CASE shipData[0]					
+						CASE s OR S
+							IF validateSerialNum <- shipData[1] AND validateYear <- shipData[2] THEN
+								IF validateHull <- shipData[5] AND validateMaxDepth <- shipData[6] THEN
+									IF validateCylinder <- shipData[3] AND validateFuel <- shipData[4]
+										CONSTRUCT inEngine USING Engine <- shipData[4], shipData[3]
+										CONSTRUCT inSub USING subMarine <- shipData[1], shipData[2], shipData[5], inEngine, shipData[6]
+										aStorage.addSubmarine <- inSub
+									ENDIF 
+								ELSE OUTPUT "wrong data"	
+								ENDIF
+							END IF
+						CASE j OR J
+								IF validateSerialNum <- shipData[1] AND validateYear <- shipData[2] THEN
+								IF validateOrdanance <- shipData[5] AND validateWingSpan <- shipData[6] THEN
+									IF validateCylinder <- shipData[3] AND validateFuel <- shipData[4]
+										CONSTRUCT inEngine USING Engine <- shipData[4], shipData[3]
+										CONSTRUCT inSub USING subMarine <- shipData[1], shipData[2], shipData[6], inEngine, shipData[5]
+										aStorage.addJet <- inJet
+									ENDIF 
+								ELSE OUTPUT "wrong data"	
+								ENDIF
+							END IF
+		
+				CASE 2
+						TRY 
+							OUTPUT <- enter file name
+							INPUT fileName 
+						    FileManager.fileRead <-fileName, aStorage
+						CATCH IOEXCEPTION e
+						END TRY-CATCH
+				CASE 3
+						OUTPUT<-"please enter serialNum"
+						INPUT inSerialNum
+						aStorage.viewSingle <- inSerialNum
+				CASE 4
+						IF aStorage.getCountShip <- none =0 AND aStorage.getCountJet <- none =0 THEN
+							OUTPUT "STORAGE IS EMPTY"
+						ELSE
+							OUTPUT <- "please enter a distancce to calculate"
+							INPUT distance
+							aStorage.destinationCheck <- distance
+						ENDIF
+				CASE 5
+						IF aStorage.getCountShip <- none > 0 OR aStorage.getCountJet <-none >0 THEN
+						aStorage.printStorage <-none
+						ENDIF
+				CASE 6
+						IF aStorage.getCountShip <- none =0 AND aStorage.getCountJet <- none =0 THEN
+							OUTPUT "STORAGE IS EMPTY"
+						ELSE
+							INPUT outFile
+							FileManager.writeToFile <- outFile, aStorage.getSubArray <- none , aStorage.getJetArray <- none
+						END IF
+				CASE 7
+						IF aStorage.getCountShip <- none =0 AND aStorage.getCountJet <- none =0 THEN
+							OUTPUT "STORAGE IS EMPTY"
+							
+						ELSE
+							aStorage.findDuplicate <- aStorage
+						END IF
+				CASE 8
+						OUTPUT "thank you for visit storage"
+					DEFAULT:
+						OUTPUT <- " please enter number bet ween 1-8 "
+						menuChoose :=8
+				END CASE
+		END run
+	
+		SUBMODULE validateSerialNum
+		IMPORT inSerialNum (String)
+		EXPORT trueSerial (BOOLEAN)
+		ASSERTION
+		ALGORITHM
+			CONSTRUCT trueSerial (BOOLEAN)
+			CONSTRUCT newTwo ARRAY SIZE 2
+			IF inSerialNum.length<-none IS NOT 7 THEN
+				trueSerial<-false
+			ELSE IF inSerialNum.length<-none IS 7
+				newTwo:=inSerialNum.split <- "\\."
+				(Integer) frontPart := (CONVERT TO INTEGER) newTwo[0]
+				(Integer) backPart := (CONVERT TO INTEGER) newTwo[1]
+				IF 99 < frontPart <301 AND 000 < barckPart <1000 THEN
+					trueSerial :=true
+				ELSE
+					trueSerial := false
+					END IF
+			END IF
+		END
+
+		SUBMODULE validateYear
+		IMPORT inYear(Integer)
+		EXPORT trueYear (BOOLEAN)
+		ASSERTION
+		ALGORITHM
+			CONSTRUCT trueYear (BOOLEAN)			
+			IF 1949 <inYear <2023 THEN
+				trueYear<-false
+			END IF
+		END
+	
+		SUBMODULE validateOrdanance
+		IMPORT inOrdanance(String)
+		EXPORT trueOrdanance (BOOLEAN)
+		ASSERTION
+		ALGORITHM
+			CONSTRUCT trueOrdanance = false (BOOLEAN)			
+			IF inOrdanance.equals <- "SUBMACHINE" THEN
+				trueOrdanance<-true
+			END IF
+			IF inOrdanance.equals <- "MISSLE" THEN
+				trueOrdanance<-true
+			END IF
+			IF inOrdanance.equals <- "ALL" THEN
+				trueOrdanance<-true
+			END IF			
+		END
+		
+		SUBMODULE validateHull
+		IMPORT inHull(String)
+		EXPORT trueHull (BOOLEAN)
+		ASSERTION
+		ALGORITHM
+			CONSTRUCT trueHull = false (BOOLEAN)			
+			IF inHull.equals <- "STEEL" THEN
+				trueHull<-true
+			END IF
+			IF inHull.equals <- "MISSLE" THEN
+				inHull<-true
+			END IF
+			IF inHull.equals <- "ALL" THEN
+				inHull<-true
+			END IF
+		END validateHull	
+		
+		SUBMODULE validateCylinder
+		IMPORT inCylinder
+		EXPORT trueCylinder BOOLEAN
+		ASSERTION
+		ALGORITHM
+			CONSTRUCT trueCylinder := false BOOLEAN
+			IF 1<inCylinder <21 THEN
+				trueCylinder:=true
+				END IF
+		END validateCylinder
+			
+		SUBMODULE validateMaxDepth
+		IMPORT inMaxDepth (REAL)
+		EXPORT	trueDepth (BOOLEAN)
+		ASERTION 
+		ALGORITHM
+			CONSTRUCT trueDepth:=false
+			IF -499.9 < inMaxDepth <0.1 THEN
+				trueDepth := true
+			END IF			
+		END validateMaxDepth
+		
+		SUBMODULE validateFuel
+		IMPORT inFuel (STRING)
+		EXPORT trueFuel BOOLEAN
+		ASSERTION
+		ALGORITHM
+			CONSTRUCT trueFuel := false
+			IF inFuel.equals<-BIO THEN 
+				trueFuel := true
+			ELSE IF inFuel.equals <-DIESEL THEN
+				trueFuel := true
+			ELSE IF inFuel.equals <- BATTERY THEN
+				trueFuel := true
+		END validateFuel
+			
+		
+		
+		SUBMODULE integerScanner
+		IMPORT non
+		EXPORT result
+		ASSERTION 
+		ALGORITHM
+			userChoice (INTEGER)
+			result (INTEGER
+			CONSTRUCT SCANNER sc USING SYSTEM SCANNER
+			IF sc.hasNextInt <none  THEN
+				userChoice := sc.nextInt <- none
+				result := userChoice
+			ELSE 
+				OUTPUT "not avalid integer"
+			END IF 
+		END integerScanner
+				
+		SUBMODULE userInput
+		IMPORT non
+		EXPORT result (Integer)
+		ASSERTION 
+		ALGORITHM
+			userInput (INTEGER)
+			prompt := "enter a number"
+			error := "please tryagain"
+			outStr := prompt
+			DO
+				OUTPUT<- outStr
+				userInput := intergerScanner<-none
+				outStr := error , NEWLINE , prompt
+			WHILE userInput<1 AND userInput >7
+			END DO-WHILE
+		END integerScanner
+		
+		SUBMODULE stringSanner
+		IMPORT none
+		EXPORT result (STRING)
+		ASSERTION
+		ALGORITHM
+			userChoice (STRING)
+			result := "" (STRING)
+			CONSTRUCT SCANNER sc USING SYSTEM SCANNER
+			userChoice := sc.next<-none
+			result (CONVERT TO UPPERCASE)
+		END stringSanner
+		
+		SUBMODULE validateInputs
+		IMPORT shipValues (ARRAY OF STRING)
+		EXPORT boolean
+		ASSERTION
+		ALGORITHM
+			if validateSerialNum<-shipValues[1] AND validateYear<- (CONVERT TO INT )shipValues[2] AND
+					validateCylinder<-(Convert to INT)shipValues[3] AND 
+					validateFuel <- shipValues[4]  THEN
+			
+					IF  (validateHull <- shipValues[5]) OR validateWingSpan<- shipValues[5] (REAL) THEN
+						IF validateMaxDepth<- shipValues[6] (REAL) OR validateOrdanance <- shipValues[6] THEN
+							allTrue = true
+						ENDIF
+					ENDIF 
+				ENDIF
+		END validateInputs		
+		
+		SUBMODULE showError 
+		IMPORT none
+		EXPORT none
+		ASSERTION
+		ALGORITHM
+				OUTPUT <- "there are some error need to be fixed"
+		END showError 
+						
+END userInterFace
